@@ -6,12 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>CATLOOP SKY</title>
   
-  <!-- PWA & Mobile Web -->
   <link rel="manifest" href="manifest.json">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="CATLOOP SKY">
   <meta name="theme-color" content="#020408">
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -19,7 +17,6 @@
   <style>
     :root {
       --space-black: #020408;
-      --deep-indigo: #0a0e1a;
       --neon-cyan: #00f3ff;
       --neon-violet: #bc13fe;
     }
@@ -31,8 +28,6 @@
       font-family: 'Inter', 'Prompt', sans-serif;
       overflow: hidden;
       -webkit-font-smoothing: antialiased;
-      user-select: none;
-      -webkit-user-select: none;
       touch-action: manipulation;
     }
     .font-orbitron { font-family: 'Orbitron', sans-serif; }
@@ -41,75 +36,95 @@
     .star-bg {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at 50% 100%, #1a1f35 0%, #020408 100%);
-      z-index: -1;
+      background: radial-gradient(circle at 50% 100%, #0a1128 0%, #020408 100%);
+      z-index: -3;
     }
+    .nebula {
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(188, 19, 254, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(0, 243, 255, 0.1) 0%, transparent 40%);
+      filter: blur(80px);
+      animation: nebulaPulse 15s infinite alternate ease-in-out;
+      z-index: -2;
+    }
+    @keyframes nebulaPulse {
+      from { transform: scale(1) translate(0, 0); opacity: 0.5; }
+      to { transform: scale(1.2) translate(5%, 5%); opacity: 0.8; }
+    }
+
+    .hex-grid {
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l25.98 15v30L30 60 4.02 45V15z' fill-opacity='0.02' fill='%23ffffff' fill-rule='evenodd' stroke='%23ffffff' stroke-opacity='0.05' stroke-width='1'/%3E%3C/svg%3E");
+      z-index: -1;
+      opacity: 0.5;
+    }
+
     .star-field {
       position: fixed;
       inset: 0;
       background-image: 
-        radial-gradient(1.5px 1.5px at 20px 30px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)),
         radial-gradient(2px 2px at 140px 170px, #fff, rgba(0,0,0,0)),
-        radial-gradient(1.5px 1.5px at 250px 360px, #fff, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 90px 440px, #fff, rgba(0,0,0,0)),
-        radial-gradient(1.5px 1.5px at 130px 580px, #fff, rgba(0,0,0,0)),
-        radial-gradient(1.5px 1.5px at 460px 120px, #fff, rgba(0,0,0,0));
+        radial-gradient(1.5px 1.5px at 250px 360px, #fff, rgba(0,0,0,0));
       background-repeat: repeat;
-      background-size: 600px 600px;
-      opacity: 0.1;
-      animation: twinkle 10s infinite alternate ease-in-out;
+      background-size: 400px 400px;
+      opacity: 0.2;
       z-index: -1;
     }
 
-    @keyframes twinkle {
-      0% { opacity: 0.05; transform: scale(1); }
-      50% { opacity: 0.2; transform: scale(1.05); }
-      100% { opacity: 0.05; transform: scale(1); }
-    }
-
-    .neon-text-cyan { text-shadow: 0 0 20px rgba(0, 243, 255, 0.4); }
-    
     .glass { 
       background: rgba(15, 20, 35, 0.4); 
       backdrop-filter: blur(40px); 
       -webkit-backdrop-filter: blur(40px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
     
     .floating-nav {
-      background: rgba(10, 15, 30, 0.7);
-      backdrop-filter: blur(50px);
-      -webkit-backdrop-filter: blur(50px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 30px 60px rgba(0,0,0,0.8);
-      padding-bottom: env(safe-area-inset-bottom);
+      background: rgba(8, 12, 25, 0.8);
+      backdrop-filter: blur(30px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .scanning-line {
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+      box-shadow: 0 0 15px var(--neon-cyan);
+      animation: scan 3s linear infinite;
+    }
+    @keyframes scan {
+      0% { top: 0%; opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { top: 100%; opacity: 0; }
     }
 
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-    .glow-cyan { box-shadow: 0 0 40px rgba(0, 243, 255, 0.2); }
-    .shadow-glow-cyan { box-shadow: 0 10px 40px rgba(0, 243, 255, 0.4); }
-    .shadow-glow-purple { box-shadow: 0 10px 40px rgba(188, 19, 254, 0.4); }
-
-    .overflow-y-auto {
-      mask-image: linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
-      -webkit-mask-image: linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
-    }
+    .glow-cyan { text-shadow: 0 0 10px rgba(0, 243, 255, 0.5); }
+    .glow-border-cyan:hover { border-color: rgba(0, 243, 255, 0.5); box-shadow: 0 0 20px rgba(0, 243, 255, 0.1); }
   </style>
-<script type="importmap">
-{
-  "imports": {
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3",
-    "zustand": "https://esm.sh/zustand@5.0.3",
-    "framer-motion": "https://esm.sh/framer-motion@11.18.2"
+  <script type="importmap">
+  {
+    "imports": {
+      "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+      "react/": "https://esm.sh/react@^19.2.3/",
+      "react": "https://esm.sh/react@^19.2.3",
+      "zustand": "https://esm.sh/zustand@5.0.3",
+      "framer-motion": "https://esm.sh/framer-motion@11.18.2"
+    }
   }
-}
-</script>
+  </script>
 </head>
 <body>
   <div class="star-bg"></div>
+  <div class="nebula"></div>
+  <div class="hex-grid"></div>
   <div class="star-field"></div>
   <div id="root"></div>
 </body>
