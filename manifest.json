@@ -1,0 +1,17 @@
+
+{
+  "short_name": "CatloopSky",
+  "name": "CATLOOP SKY: Stellar Navigation",
+  "icons": [
+    {
+      "src": "https://api.dicebear.com/7.x/identicon/svg?seed=catloop&backgroundColor=020408",
+      "type": "image/svg+xml",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#020408",
+  "background_color": "#020408",
+  "orientation": "portrait"
+}

@@ -3,8 +3,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>CATLOOP SKY</title>
+  
+  <!-- PWA & Mobile Web -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CATLOOP SKY">
+  <meta name="theme-color" content="#020408">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Orbitron:wght@400;700&family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
@@ -22,6 +31,9 @@
       font-family: 'Inter', 'Prompt', sans-serif;
       overflow: hidden;
       -webkit-font-smoothing: antialiased;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
     }
     .font-orbitron { font-family: 'Orbitron', sans-serif; }
     
@@ -71,6 +83,7 @@
       -webkit-backdrop-filter: blur(40px);
       border: 1px solid rgba(255, 255, 255, 0.06);
       box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      padding-bottom: env(safe-area-inset-bottom);
     }
 
     .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -87,7 +100,6 @@
     .shadow-glow-cyan { box-shadow: 0 0 25px rgba(0, 243, 255, 0.4); }
     .shadow-glow-purple { box-shadow: 0 0 25px rgba(188, 19, 254, 0.4); }
 
-    /* Custom scroll view effect for mobile */
     .overflow-y-auto {
       mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
       -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
