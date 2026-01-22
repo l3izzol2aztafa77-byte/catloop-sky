@@ -1,0 +1,8 @@
+{
+  "name": "CATLOOP SKY",
+  "description": "A gamified futuristic Thai-first stargazing app with AR missions and knowledge library.",
+  "requestFramePermissions": [
+    "camera",
+    "geolocation"
+  ]
+}
